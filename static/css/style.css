@@ -16,8 +16,7 @@ a {
 	color: var(--pink);
 }
 
-p > code {
-	font-family: "IBM Plex Mono";
+code {
 	color: var(--orange);
 }
 
@@ -29,7 +28,6 @@ pre > code {
 html {
 	padding: 1em;
 }
-
 
 @keyframes stars {
 	from {

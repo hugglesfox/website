@@ -1,6 +1,6 @@
 # Applying color theory to Beat Saber
 
-_2023-08-07_
+_Published 2023-08-07_
 
 Beat saber is a game which involves reading little white triangles on colored
 blocks. Identifying shapes via contrast sounds a lot like typography so I
