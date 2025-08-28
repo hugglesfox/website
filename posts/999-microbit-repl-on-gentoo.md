@@ -23,11 +23,11 @@ Device Drivers --->
 	    <*>  USB Modem (CDC ACM) support
 ```
 
-Now that the module is enabled, [rebuild the
-kernel](https://wiki.gentoo.org/wiki/Kernel/Rebuild) and reboot. Once rebooted
-plug in the micro:bit and there should be a new device in `/dev` called
-`/dev/ttyACM0` (or something similar). Now it's as simple as connecting to your
-micro:bit REPL using your serial console client of choice!
+Now that the module is enabled, [rebuild the kernel](https://wiki.gentoo.org/wiki/Kernel/Rebuild)
+and reboot. Once rebooted plug in the micro:bit and there should be a new
+device in `/dev` called `/dev/ttyACM0` (or something similar). Now it's as
+simple as connecting to your micro:bit REPL using your serial console client of
+choice!
 
 ```
 picocom /dev/ttyACM0 -b 115200

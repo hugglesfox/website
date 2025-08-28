@@ -5,10 +5,10 @@ _Published 2020-02-19_
 
 ![Debian with the PopOS theming](/media/pop-debian.png)
 
-The boring but descriptive title: _Configuring and installing the PopOS
-theming and tools on Debian based distributions other then PopOS_
+The boring but descriptive title would be "Configuring and installing the PopOS
+theming and tools on Debian based distributions other then PopOS".
 
-I <3 the work the System76 team has put into the theming and tooling for Pop.
+I love the work the System76 team has put into the theming and tooling for Pop.
 system76-power is super handy and the pop-gtk theme is the only theme I can
 comfortably daily drive but the lack of customizability of the drive partition
 layout and file system types to enable things such as hibernation or zfs during
@@ -22,11 +22,11 @@ So that's what I did.
 Starting out with a fresh Debian Buster install with gnome installed, (I like
 to use the package gnome-core because it doesn't install any of the gnome
 recommended apps which I never use such as gnome-contacts) the first thing I
-did was add the Pop ppa. Now before you scream ["Don't break
-Debian!"](https://wiki.debian.org/DontBreakDebian), as long as the repo is
-correctly pinned and we don't try to install anything potentially system
-breaking such as the Nvidia drivers, kernel, gnome, etc. the system will be
-fine as it will mostly just be harmless configuration files and some theming.
+did was add the Pop ppa. Now before you scream [Don't break Debian!](https://wiki.debian.org/DontBreakDebian),
+as long as the repo is correctly pinned and we don't try to install anything
+potentially system breaking such as the Nvidia drivers, kernel, gnome, etc. the
+system will be fine as it will mostly just be harmless configuration files and
+some theming.
 
 ```
 # apt-add-repository ppa:system76/pop

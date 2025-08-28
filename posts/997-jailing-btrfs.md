@@ -23,8 +23,7 @@ I can configure SSH to use the chroot for a user when they login, that way that
 user doesn't have access to the underlying root filesystem and I can control
 which tools and programs are available to the user.
 
-So this is the script I came up with a lot of help from [bholt's into to
-continers](https://btholt.github.io/complete-intro-to-containers/chroot)
+So this is the script I came up with a lot of help from [bholt's into to containers](https://btholt.github.io/complete-intro-to-containers/chroot)
 
 ```
 #!/bin/sh
