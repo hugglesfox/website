@@ -419,7 +419,7 @@ build() {
   SITE_TITLE="$(html_escape "${SITE_TITLE:-}")"
   [[ -n "${SITE_URL:-}" ]] || warn "\$SITE_URL not set"
 
-  [[ -d "${DEST_DIR}" ]] && rm -rf "${DEST_DIR}"
+  # [[ -d "${DEST_DIR}" ]] && rm -rf "${DEST_DIR}"
   mkdir -p "${DEST_DIR}" && log "Created build directory: ${DEST_DIR}"
 
   # Need to declare this slightly more globally otherwise can't share it across functions 🤷
