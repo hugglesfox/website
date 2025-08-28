@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> _head.html}}
+<body>
+
+  {{> _header.html}}
+
+  <main>
+    <h2>All tags</h2>
+    <ul>
+      {{#all_tags}}
+      <li><a href="/tags/{{@key}}">{{@key}}</a> <small>({{.}})</small></li>
+      {{/all_tags}}
+      {{^all_tags}}
+      <li><em>No tags.</em></li>
+      {{/all_tags}}
+    </ul>
+  </main>
+
+  {{> _footer.html}}
+
+</body>
+</html>
