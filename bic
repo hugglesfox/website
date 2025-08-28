@@ -358,8 +358,8 @@ build_robots() {
 }
 
 build_feed() {
-  [[ ! -f "${SRC_DIR}"/feed.rss || ! -f "${SRC_DIR}"/__feed.rss ]] && return
-  log "Building feed.rss"
+  [[ ! -f "${SRC_DIR}"/feed.xml || ! -f "${SRC_DIR}"/__feed.xml ]] && return
+  log "Building feed.xml"
 
   local __feed=""
   for post in "${ALL_POSTS[@]}"; do
@@ -371,15 +371,15 @@ build_feed() {
     date="$(DATE_FORMAT="-R" mk_date "${post}")"
     slug="$(mk_slug "${filename_sans_id%.md}")"
     id="$(mk_id "${filename}" "${filename_sans_id}")"
-    __feed+="$(mo "${SRC_DIR}"/__feed.rss)"
+    __feed+="$(mo "${SRC_DIR}"/__feed.xml)"
     __feed+=$'\n'
   done
 
   (
     export __feed
     mo \
-      "${SRC_DIR}"/feed.rss \
-      > "${DEST_DIR}"/feed.rss
+      "${SRC_DIR}"/feed.xml \
+      > "${DEST_DIR}"/feed.xml
   )
 }
 
@@ -407,7 +407,7 @@ build() {
   [[ -d "${SRC_DIR}"/pages && -f "${SRC_DIR}"/page.html  ]] || warn "pages/ + page.html for pages"
   [[ -d "${SRC_DIR}"/posts && -f "${SRC_DIR}"/entry.html ]] || warn "posts/ + entry.html for posts"
   [[ -f "${SRC_DIR}"/index.html && -f "${SRC_DIR}"/__index.html                           ]] || fatal "index.html (and __index.html) required"
-  [[ -f "${SRC_DIR}"/feed.rss   && -f "${SRC_DIR}"/__feed.rss                             ]] || warn "feed.rss (and __feed.rss) for an RSS feed"
+  [[ -f "${SRC_DIR}"/feed.xml   && -f "${SRC_DIR}"/__feed.xml                             ]] || warn "feed.xml (and __feed.xml) for an RSS feed"
   [[ -f "${SRC_DIR}"/tags.html  && -f "${SRC_DIR}"/tag.html && -f "${SRC_DIR}"/__tag.html ]] || warn "tags.html, tag.html (and __tag.html) for tagging entries"
   [[ -f "${SRC_DIR}"/sitemap.xml ]] || warn "sitemap.xml for a sitemap for search engines"
   [[ -f "${SRC_DIR}"/robots.txt ]]  || warn "robots.txt for web crawlers"

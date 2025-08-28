@@ -5,5 +5,4 @@
   <guid isPermaLink="false">{{id}}</guid>
   {{! RSS feeds need an RFC 822 date }}
   <pubDate>{{date}}</pubDate>
-  <description>Blog post from Hayley's corner of the internet</description>
 </item>
