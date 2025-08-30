@@ -93,7 +93,7 @@ hr {
 }
 
 .fabulous {
-	background: linear-gradient(to right, var(--purple), var(--orange));
+	background: linear-gradient(to right, var(--pink), var(--orange));
 	background-clip: text;
 	color: transparent;
 }
@@ -108,7 +108,7 @@ hr {
 	padding-left: 0;
 }
 
-h2 > .fa-star {
+h2 > .fa-heart {
 	font-size: 0.6em;
 }
 
