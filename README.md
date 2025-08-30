@@ -13,6 +13,7 @@ This makes use of the following projects:
 - [Font Awesome](https://fontawesome.com/): icon typeface
 - [highlight.js](https://highlightjs.org/): code syntax highlighting
 - [RSS.style](https://www.rss.style/): rss page beautification
+- [Spleen](https://github.com/fcambus/spleen): 88x31 typeface
 
 ## Building
 
