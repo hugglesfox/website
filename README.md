@@ -8,7 +8,7 @@ This makes use of the following projects:
     - [mo](https://github.com/tests-always-included/mo): templating
     - [md-to-html](https://github.com/moltenib/md-to-html): markdown to html conversion
     - [sqids](https://sqids.org): unique identifiers
-- [Dracula theme](https://github.com/dracula/dracula-theme): color pallete
+- [Dracula theme](https://github.com/dracula/dracula-theme): color palette
 - [IBM Plex](https://www.ibm.com/plex/): font family
 - [Font Awesome](https://fontawesome.com/): icon typeface
 - [highlight.js](https://highlightjs.org/): code syntax highlighting
