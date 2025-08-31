@@ -247,7 +247,8 @@ build_tags() {
   log "Building tags.html"
   (
     title="All tags"
-    export title all_tags
+    slug="tags"
+    export title all_tags slug
     mo \
       "${SRC_DIR}"/tags.html \
       > "${DEST_DIR}"/tags.html
@@ -276,7 +277,8 @@ build_tag() {
   mkdir -p "${DEST_DIR}"/tags
   (
     title="All posts tagged ${tag}"
-    export __tag title tag
+    slug="tags/${1}"
+    export __tag title tag slug
     mo \
       "${SRC_DIR}"/tag.html \
       > "${DEST_DIR}/tags/${tag}.html"

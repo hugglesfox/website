@@ -1,9 +1,13 @@
 <head>
 	{{#title}}
 		<title>{{title}} | {{SITE_TITLE}}</title>
+		<meta property="og:title" content="{{title}}">
+		<meta property="og:description" content="{{SITE_TITLE}}">
 	{{/title}}
 	{{^title}}
 		<title>{{SITE_TITLE}}</title>
+		<meta property="og:title" content="{{SITE_TITLE}}">
+		<meta property="og:description" content="Welcome! Here I share projects and things that I discover.">
 	{{/title}}
 
 	<meta charset="UTF-8">
@@ -12,11 +16,9 @@
 	<meta name="description" content="{{SITE_TITLE}}">
 	<meta name="fediverse:creator" content="@huggles@furry.engineer">
 
-	<meta property="og:title" content="{{title}}">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="{{SITE_URL}}/{{slug}}">
 	<meta property="og:image" content="{{SITE_URL}}/huggles.png">
-	<meta property="og:description" content="{{SITE_TITLE}}">
 
 	<link rel="alternate" type="application/rss+xml" title="RSS Feed for {{SITE_TITLE}}" href="/feed.xml">
 	<link rel="stylesheet" href="/css/style.css">
