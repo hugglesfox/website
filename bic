@@ -300,8 +300,9 @@ build_index() {
   done
 
   (
-    title="All posts"
-    export __index title
+    title=""
+    slug=""
+    export __index title slug
     mo \
       "${SRC_DIR}"/index.html \
       > "${DEST_DIR}"/index.html
