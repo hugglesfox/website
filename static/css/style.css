@@ -42,9 +42,10 @@ html {
 body {
 	background: var(--background);
 	background-image:
-		radial-gradient(var(--comment), rgba(98,114,164,.2) 2.5px, transparent 1px),
-		radial-gradient(var(--comment), rgba(98,114,164,.15) 2px, transparent 1px),
-		radial-gradient(var(--comment), rgba(98,114,164,.1) 1.5px, transparent 1px), radial-gradient(rgba(98,114,164,.4), rgba(98,114,164,.2) 1px, transparent 1px);
+		radial-gradient(var(--comment), rgba(98,114,164,.8) 1px, transparent 1px),
+		radial-gradient(var(--comment), rgba(98,114,164,.6) 1px, transparent 1px),
+		radial-gradient(var(--comment), rgba(98,114,164,.4) 1px, transparent 1px), 
+		radial-gradient(rgba(98,114,164,.4), rgba(98,114,164,.2) 1px, transparent 1px);
 	background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
 	/* background-position: 0 0, 40px 60px, 130px 270px, 70px 100px; */
 	animation: 15s linear 0s infinite stars;
