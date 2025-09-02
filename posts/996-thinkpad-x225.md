@@ -51,16 +51,14 @@ So why not just use a Thinkpad X230? I dislike the feel of the chicklet
 keyboard and couldn't find a fully working X230 for a reasonable price.
 
 Interestingly the Thinkpad X230 has a security vulnerability which allows for
-the [embedded controller to be
-reprogrammed](https://github.com/hamishcoleman/thinkpad-ec) This unlocks some
+the [embedded controller to be reprogrammed](https://github.com/hamishcoleman/thinkpad-ec) This unlocks some
 neat functionality such as being able to modify the keyboard layout and remove
 the battery validation which blocks the usage of third party batteries.
 
 ## Combining the two
 
 The Thinkpad X220 and X230 are very similar in their physical design. Therefore
-a common mod for the X230 is to replace the keyboard with the [one from the
-X220](https://www.thinkwiki.org/wiki/Install\_Classic\_Keyboard\_on\_xx30\_Series\_ThinkPads)
+a common mod for the X230 is to replace the keyboard with the [one from the X220](https://www.thinkwiki.org/wiki/Install\_Classic\_Keyboard\_on\_xx30\_Series\_ThinkPads)
 But at the time, there were no undamaged Thinkpad X230's on the market so I
 decided to do the opposite and install an X230 motherboard into a X220 chassis.
 
