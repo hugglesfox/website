@@ -1,10 +1,11 @@
 # My thoughts on LLM usage
+tags: opinion, ai
 
 _Published ..._
 
 _Heads up this one is an opinion piece._
 
-_This is my thoughts and feelings at the date of publishing. These thoughts and feelings might change and they don't have to be yours._
+_These is my thoughts and feelings at the date of publishing. These thoughts and feelings might change and they don't have to be yours._
 
 Lately my boss has been drinking the LLM koolaid, touting 5x, 10x or even 20x
 efficiency gains through using LLMs to write code. The conversations which this
@@ -21,10 +22,8 @@ clothes being outside in the sun for 8+ hours.
 So I have an LLM which digests the current weather forecast then attempt to
 predict how many hours it will take for the washing to dry. Then home assistant
 sets a timer and sends me a notification when my clothes are ready to be
-brought in. The following is the output of it's reasoning ([Qwen3.5 4B distilled
-through Claude Opus
-4.6](https://huggingface.co/Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled)),
-as an aside it's funny how it converts the kph wind estimates to mph.
+brought in. The following is the output of it's reasoning, as an aside it's
+funny how it converts the kph wind estimates to mph.
 
 ```markdown
 To determine the minimum hours needed to dry clothes before sunset, I need
@@ -66,15 +65,16 @@ This recommendation accounts for:
 If your clothes are lightweight or you're in an urgent situation, you
 could potentially do it in 4-5 hours, but 6 hours provides a reliable
 ```
+Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled
+[huggingface](https://huggingface.co/Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled)
 
 Now I could very well create an algorithm that's able to deterministically
 calculate the number of hours required to dry my washing for any given weather
 forecast, however getting a fuzzy result from an LLM is usually going to be
 good enough and is quicker to implement.
 
-To me LLMs are simply a tool, a 'normal' tool as [Cory Doctorow might put
-it](https://pluralistic.net/2026/03/12/normal-technology/) and yes this tool
-has downsides like any other
+To me LLMs are simply a tool, a 'normal' tool as [Cory Doctorow might put it](https://pluralistic.net/2026/03/12/normal-technology/) 
+and yes this tool has downsides like any other
 
 - Hallucinations 
 - High computing cost for training and running
