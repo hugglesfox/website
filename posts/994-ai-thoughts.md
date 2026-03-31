@@ -65,16 +65,15 @@ This recommendation accounts for:
 If your clothes are lightweight or you're in an urgent situation, you
 could potentially do it in 4-5 hours, but 6 hours provides a reliable
 ```
-Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled
-[huggingface](https://huggingface.co/Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled)
+Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2
+[huggingface](https://huggingface.co/Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2)
 
 Now I could very well create an algorithm that's able to deterministically
 calculate the number of hours required to dry my washing for any given weather
 forecast, however getting a fuzzy result from an LLM is usually going to be
 good enough and is quicker to implement.
 
-To me LLMs are simply a tool, a 'normal' tool as [Cory Doctorow might put it](https://pluralistic.net/2026/03/12/normal-technology/) 
-and yes this tool has downsides like any other
+To me LLMs are simply a tool, and yes this tool has downsides like any other
 
 - Hallucinations 
 - High computing cost for training and running
