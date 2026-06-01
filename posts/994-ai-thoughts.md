@@ -1,7 +1,7 @@
 # My thoughts on LLM usage
 tags: opinion, ai
 
-_Published ..._
+_Published 2026/02/06_
 
 _Heads up this one is an opinion piece._
 
@@ -95,24 +95,19 @@ that is the masking of individual expression.
 The thing that scares me the most about the widespread adoption of LLMs to
 summarise, edit and create text is the way in which it likes to convert
 everything into a standardized phrasing and formatting. This paves over nuance
-and careful consideration until everything sounds like it's been written by an
-overenthusiastic middle level manager. Documentation, stories, opinions, code,
-as soon as an LLM is introduced into the mix, even if it's just as an external
-aid, it influences us and everything starts to slowly homogenize towards the
-LLM's style. 
+and careful consideration, making everything sound like it's been written by
+an overenthusiastic middle level manager.
 
-Unfortunately this affects people who don't even use LLMs, as long as they are
-reading content which has been influenced by LLMs. The way in which people
-express themselves is influenced by the environment in which they interact with
-and so if one interacts with LLM content then there's the potential for them to
-subconsciously gravitate towards the LLMs style.
+Documentation, stories, opinions, code, as soon as an LLM is introduced into
+the mix, even if it's just as an external aid, it influences the writer and the
+audience and everything starts to slowly homogenize towards the LLM's voice.
 
 Thus none of my content on this blog, mastodon or code on Codeberg/GitHub ever
-has been or is ever going to be created or edited with an LLM. With the
+has been nor is ever going to be created or edited with an LLM. With the
 exception of directly quoting an LLM such above.
 
 The best defence we have right now against AI homogenization is disclosure.
-If you use LLMs in any capacity to create a work, please disclose it. That way
-at least your audience is somewhat aware that this is the voice and reasoning
-of an LLM and not of a human.
+If you use LLMs in any capacity to create a piece, please disclose it. That way
+at least your audience is somewhat aware that it is the voice and reasoning of
+an LLM and not of a human.
 
