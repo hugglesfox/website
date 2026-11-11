@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>My thoughts on LLM usage | Hayley&#39;s corner of the internet</title>
+		<meta property="og:title" content="My thoughts on LLM usage">
+		<meta property="og:description" content="Hayley&#39;s corner of the internet">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Hayley Hughes">
+	<meta name="description" content="Hayley&#39;s corner of the internet">
+	<meta name="fediverse:creator" content="@huggles@furry.engineer">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://foxes.systems/ai-thoughts">
+	<meta property="og:image" content="https://foxes.systems/huggles.png">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Hayley&#39;s corner of the internet" href="/feed.xml">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css" integrity="sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css" integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+  <nav>
+  	<p>
+  	<a href="/">Home</a>
+  	&emsp;
+  	<a href="/feed.xml">Feed</a>
+  	&emsp;
+  	<a href="/tags">Tags</a>
+  	</p>
+  </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>My thoughts on LLM usage</h1>
+
+      
+<p><em>Published 2026/02/06</em></p>
+
+<p><em>Heads up this one is an opinion piece.</em></p>
+
+<p><em>These is my thoughts and feelings at the date of publishing. These thoughts and feelings might change and they don&apos;t have to be yours.</em></p>
+
+<p>Lately my boss has been drinking the LLM koolaid, touting 5x, 10x or even 20x
+efficiency gains through using LLMs to write code. The conversations which this
+mentality has created has forced me to really reflect on what AI means to me.</p>
+
+<p>I use LLMs almost daily myself in my home assistant setup. I have a small model
+running locally on a cheap, lower power GPU to do basic low consequence
+reasoning and summarising for automations. For an example, I usually do the
+washing in the morning and hang it outside on the clothesline. Then I have the
+issue that I then go about my day and forget about the clothes until I remember
+them last minute at night and hurry out to bring them in. This results in
+clothes being outside in the sun for 8+ hours.</p>
+
+<p>So I have an LLM which digests the current weather forecast then attempt to
+predict how many hours it will take for the washing to dry. Then home assistant
+sets a timer and sends me a notification when my clothes are ready to be
+brought in. The following is the output of it&apos;s reasoning, as an aside it&apos;s
+funny how it converts the kph wind estimates to mph.</p>
+
+<pre><code>To determine the minimum hours needed to dry clothes before sunset, I need
+to analyze the weather forecast and current time.
+
+## Time Analysis:
+
+- Current time: 2026-03-31 11&#x2B50;18 UTC+11:00
+- Sunset time: 2026-03-31T08&#x2B50;04+00:00 = 2026-03-31T19&#x2B50;04+11:00
+- Remaining time before sunset: 19:16 - 11:18 = **7 hours 58 minutes**
+
+## Weather Conditions (today):
+
+- All conditions are sunny throughout the morning
+- Temperature is rising from 22°C to 28°C
+- Wind speeds range from 17-22 mph with gusts up to 31 mph
+- UV index ranges from 4-6
+- No precipitation expected
+
+## Minimum Drying Hours Calculation:
+
+For the minimum drying time, I&apos;m considering optimal conditions:
+
+- **1 hour**: May be too aggressive for most fabric types
+- **1.5 hours**: Borderline for many garments
+- **2 hours**: Safe for quick-dry conditions with strong wind and sunshine
+
+However, given that you have 8 hours before sunset and the optimal weather
+conditions, I recommend **6 hours** as the minimum practical time.
+
+This recommendation accounts for:
+
+- Conservative margin of safety
+- Variation in fabric drying rates
+- Potential wind variability
+- Ensures complete drying to prevent mildew
+- Well within the 8-hour window available
+
+If your clothes are lightweight or you&apos;re in an urgent situation, you
+could potentially do it in 4-5 hours, but 6 hours provides a reliable
+</code></pre>
+<p>Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2
+<a href="https://huggingface.co/Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2">huggingface</a></p>
+
+<p>Now I could very well create an algorithm that&apos;s able to deterministically
+calculate the number of hours required to dry my washing for any given weather
+forecast, however getting a fuzzy result from an LLM is usually going to be
+good enough and is quicker to implement.</p>
+
+<p>To me LLMs are simply a tool, and yes this tool has downsides like any other</p>
+
+<ul>
+<li>Hallucinations </li>
+<li>High computing cost for training and running</li>
+<li>Dubious interpretations of copyright law when collecting training data</li>
+<li>Questionable copyright status of generated content</li>
+<li>And more</li>
+</ul>
+
+<p>Though with time and I do believe that there are going to be at least partial
+solutions to most of these problems, such as freely licensed training data,
+distilling to make small models that can run efficiently on consumer hardware
+with acceptable results, etc. Therefore there might be niche use cases where
+LLMs might make sense.</p>
+
+<p>But there is an issue which I don&apos;t believe is being talked about enough and
+that is the masking of individual expression.</p>
+
+<h2 id="ai-homogenization">AI Homogenization</h2>
+
+<p>The thing that scares me the most about the widespread adoption of LLMs to
+summarise, edit and create text is the way in which it likes to convert
+everything into a standardized phrasing and formatting. This paves over nuance
+and careful consideration, making everything sound like it&apos;s been written by
+an overenthusiastic middle level manager.</p>
+
+<p>Documentation, stories, opinions, code, as soon as an LLM is introduced into
+the mix, even if it&apos;s just as an external aid, it influences the writer and the
+audience and everything starts to slowly homogenize towards the LLM&apos;s voice.</p>
+
+<p>Thus none of my content on this blog, mastodon or code on Codeberg/GitHub ever
+has been nor is ever going to be created or edited with an LLM. With the
+exception of directly quoting an LLM such above.</p>
+
+<p>The best defence we have right now against AI homogenization is disclosure.
+If you use LLMs in any capacity to create a piece, please disclose it. That way
+at least your audience is somewhat aware that it is the voice and reasoning of
+an LLM and not of a human.</p>
+
+    </article>
+  </main>
+
+  <footer>
+  	<p>Hayley Hughes &copy; <a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script>
+
+
+</body>
+</html>

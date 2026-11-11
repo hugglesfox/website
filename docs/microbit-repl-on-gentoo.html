@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Accessing the BBC micro:bit REPL on Gentoo | Hayley&#39;s corner of the internet</title>
+		<meta property="og:title" content="Accessing the BBC micro:bit REPL on Gentoo">
+		<meta property="og:description" content="Hayley&#39;s corner of the internet">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Hayley Hughes">
+	<meta name="description" content="Hayley&#39;s corner of the internet">
+	<meta name="fediverse:creator" content="@huggles@furry.engineer">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://foxes.systems/microbit-repl-on-gentoo">
+	<meta property="og:image" content="https://foxes.systems/huggles.png">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Hayley&#39;s corner of the internet" href="/feed.xml">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css" integrity="sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css" integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+  <nav>
+  	<p>
+  	<a href="/">Home</a>
+  	&emsp;
+  	<a href="/feed.xml">Feed</a>
+  	&emsp;
+  	<a href="/tags">Tags</a>
+  	</p>
+  </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Accessing the BBC micro:bit REPL on Gentoo</h1>
+
+      
+<p><em>Published 2019-02-09</em></p>
+
+<p><img src="/media/microbit_repl.png" alt="The microbit repl in a terminal"></p>
+
+<p>Thanks to the <a href="https://ncss.edu.au">National Computer Science School</a>, I&apos;m now
+the proud owner of a BBC micro:bit. The micro:bit has the ability to provide a
+python REPL over USB serial but when plugging it into my Gentoo machine, the
+micro:bit doesn&apos;t show up in <code>/dev</code>. What gives?</p>
+
+<p>Like most things, a kernel module is required to provide the drivers for the
+USB serial interface. On first inspection you would think that
+<code>CONFIG_USB_SERIAL_CONSOLE</code> is the correct module, but no. The micro:bit&apos;s REPL
+is actually treated as a USB modem which requires <code>CONFIG_USB_ACM</code> to be set.</p>
+
+<h2 id="kernel-configuration">Kernel Configuration</h2>
+
+<pre><code>Device Drivers ---&gt;
+  [*]  USB Support ---&gt;
+      &lt;*&gt;  USB Modem (CDC ACM) support
+</code></pre>
+
+<p>Now that the module is enabled, <a href="https://wiki.gentoo.org/wiki/Kernel/Rebuild">rebuild the kernel</a>
+and reboot. Once rebooted plug in the micro:bit and there should be a new
+device in <code>/dev</code> called <code>/dev/ttyACM0</code> (or something similar). Now it&apos;s as
+simple as connecting to your micro:bit REPL using your serial console client of
+choice!</p>
+
+<pre><code>picocom /dev/ttyACM0 -b 115200
+</code></pre>
+
+<p>The <a href="https://microbit-micropython.readthedocs.io/en/latest/devguide/repl.html">micro:bit documentation</a> as some more examples. </p>
+
+    </article>
+  </main>
+
+  <footer>
+  	<p>Hayley Hughes &copy; <a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script>
+
+
+</body>
+</html>

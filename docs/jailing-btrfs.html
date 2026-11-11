@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Jailing BTRFS | Hayley&#39;s corner of the internet</title>
+		<meta property="og:title" content="Jailing BTRFS">
+		<meta property="og:description" content="Hayley&#39;s corner of the internet">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Hayley Hughes">
+	<meta name="description" content="Hayley&#39;s corner of the internet">
+	<meta name="fediverse:creator" content="@huggles@furry.engineer">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://foxes.systems/jailing-btrfs">
+	<meta property="og:image" content="https://foxes.systems/huggles.png">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Hayley&#39;s corner of the internet" href="/feed.xml">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css" integrity="sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css" integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+  <nav>
+  	<p>
+  	<a href="/">Home</a>
+  	&emsp;
+  	<a href="/feed.xml">Feed</a>
+  	&emsp;
+  	<a href="/tags">Tags</a>
+  	</p>
+  </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Jailing BTRFS</h1>
+
+      
+<p><em>Published 2021-12-01</em></p>
+
+<p><img src="/media/btrbk_jail.png" alt="A screenshot of the commands ls and clear not working in the jail but btrfs does"></p>
+
+<p>I&apos;ve finally gotten around to fixing my backup system as for quite a while I
+haven&apos;t had functional backups (oops). I use btrfs for my root filesystem and
+really like the backup program <a href="https://digint.ch/btrbk/">btrbk</a> as it&apos;s
+simple, makes use of btrfs&apos; snaphotting features and just works.</p>
+
+<p>Btrbk can use btrfs&apos; built in send and receive commands to send snapshots over
+SSH to a remote machine. However btrbk needs to run the btrfs recieve command
+as root so that it can create files with the correct permissions. Whilst I&apos;m
+sure btrbk is well designed and all, I still don&apos;t really want to give a perl
+script full root access on the backup machine.</p>
+
+<p>That&apos;s when I remembered about those fancy jail things that BSD users keep
+raving about (&lt;3 BSD users) and I have a little experience with chroot so I
+thought creating a jail like chroot envionment might be the solution. This way
+I can configure SSH to use the chroot for a user when they login, that way that
+user doesn&apos;t have access to the underlying root filesystem and I can control
+which tools and programs are available to the user.</p>
+
+<p>So this is the script I came up with a lot of help from <a href="https://btholt.github.io/complete-intro-to-containers/chroot">bholt&apos;s into to containers</a></p>
+
+<pre><code>#!/bin/sh
+
+# Create an ssh jail for btrbk
+
+JAIL=/var/jail
+
+# Create root layout
+mkdir -p $JAIL/backups
+mkdir -p $JAIL/bin
+mkdir -p $JAIL/dev
+mkdir -p $JAIL/lib
+mkdir -p $JAIL/proc
+mkdir -p $JAIL/sbin
+mkdir -p $JAIL/usr/bin
+mkdir -p $JAIL/usr/lib
+
+# Create devices
+mknod -m 666 $JAIL/dev/null c 1 3
+
+# Copy binaries
+cp /bin/sh $JAIL/bin/
+cp /bin/cat $JAIL/bin/
+cp /sbin/btrfs $JAIL/sbin/
+cp /usr/bin/readlink $JAIL/usr/bin/
+
+# Copy required libraries
+cp /lib/ld-musl-x86_64.so.1 $JAIL/lib/
+cp /lib/libblkid.so.1 $JAIL/lib/
+cp /lib/libuuid.so.1 $JAIL/lib/
+cp /lib/libz.so.1 $JAIL/lib/
+cp /usr/lib/liblzo2.so.2 $JAIL/usr/lib/
+cp /usr/lib/libzstd.so.1 $JAIL/usr/lib/
+
+# Mount proc
+mount -t proc /proc $JAIL/proc
+
+# Mount the data drive
+mount --bind /media/data $JAIL/backups
+</code></pre>
+
+<p>See aforementioned guide for a more in-depth explanation but the basic run down
+is as follows</p>
+
+<ul>
+<li>Create the directories required for a unix filesystem</li>
+<li>Create the required <code>/dev</code> special devices (btrbk only needs <code>/dev/null</code>)</li>
+<li>Mount <code>/proc</code></li>
+<li>Copy the binaries needed for btrbk into the places it expects to find them</li>
+<li>Copy the libraries required for those binaries (which can be found using <code>ldd</code>) into their respective locations</li>
+</ul>
+
+<p>It probably would be better to use hardlinks for the binaries and libraries as
+that way they can be easily updated by the package manager however for the
+particular system I&apos;m deploying this on, this isn&apos;t an issue.</p>
+
+<h2 id="security-issues">Security Issues</h2>
+
+<p>Whilst I&apos;m sure there are many others (if you find one, feel free to let me
+know), there 2 main security problems which I can find</p>
+
+<ol>
+<li>The backup data is accessible and could be modified</li>
+<li>Processes outside the jail are available in <code>/proc</code> in the jail</li>
+</ol>
+
+<p>The first problem is going to be an issue with almost any setup as the backup
+program needs access to the btrfs filesystem to manage the backups. Using SSH
+keys to prevent unauthorized people gaining access to the chroot in helps
+mitigate this.</p>
+
+<p>The second problem is one I&apos;m not sure how to best solve. If a bad actor were
+able to login, they would be able to access information about processes running
+outside the chroot environment (such as envrionment variables, command line
+arguments, etc.) from <code>/proc</code>, potentially leaking sensitive information.
+Whilst I&apos;m sure there&apos;s a way to restrict what&apos;s available in <code>/proc</code> to only
+processes running in the chroot, more research is required (if anyone can link
+me to any relevant resources it would be appreciated).</p>
+
+    </article>
+  </main>
+
+  <footer>
+  	<p>Hayley Hughes &copy; <a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script>
+
+
+</body>
+</html>

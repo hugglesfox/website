@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="simple-rss.xslt"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title><![CDATA[foxes.systems]]></title>
+    <link>https://foxes.systems</link>
+    <atom:link href="https://foxes.systems/feed.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[Blog posts from Hayley's corner of the internet]]></description>
+    <item>
+  <title><![CDATA[ Faking /dev for rootless build environments ]]></title>
+  <link>https://foxes.systems/devfakefs</link>
+  <guid isPermaLink="false">bic_UZMLWZg9DAJQ7XlrzYPhmvbTLu4E</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+<item>
+  <title><![CDATA[ My thoughts on LLM usage ]]></title>
+  <link>https://foxes.systems/ai-thoughts</link>
+  <guid isPermaLink="false">bic_gJtHJdmfrXBVPaH7Dyuvtw6ESeTj</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+<item>
+  <title><![CDATA[ Applying color theory to Beat Saber ]]></title>
+  <link>https://foxes.systems/coloring-beatsaber</link>
+  <guid isPermaLink="false">bic_E86hxLZ9ck8reBm0UyPW6j1V2vbl</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+<item>
+  <title><![CDATA[ Adventures with old thinkpads ]]></title>
+  <link>https://foxes.systems/thinkpad-x225</link>
+  <guid isPermaLink="false">bic_VtSXmZF31wYIqpkviO5nCzBW2Eyj</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+<item>
+  <title><![CDATA[ Jailing BTRFS ]]></title>
+  <link>https://foxes.systems/jailing-btrfs</link>
+  <guid isPermaLink="false">bic_uQe2YK1rnl0MGUW7ijVZhayOLJDN</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+<item>
+  <title><![CDATA[ Hijacking PopOS ]]></title>
+  <link>https://foxes.systems/highjacking-pop-os</link>
+  <guid isPermaLink="false">bic_OzhJLhNcSbfeDK7HiYmCBA89yxzg</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+<item>
+  <title><![CDATA[ Accessing the BBC micro:bit REPL on Gentoo ]]></title>
+  <link>https://foxes.systems/microbit-repl-on-gentoo</link>
+  <guid isPermaLink="false">bic_ATas1igzRC6Gs0DnXbv9haf48ojc</guid>
+  <pubDate>Wed, 11 Nov 2026 10:43:35 +0000</pubDate>
+</item>
+
+  </channel>
+</rss>

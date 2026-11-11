@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Applying color theory to Beat Saber | Hayley&#39;s corner of the internet</title>
+		<meta property="og:title" content="Applying color theory to Beat Saber">
+		<meta property="og:description" content="Hayley&#39;s corner of the internet">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Hayley Hughes">
+	<meta name="description" content="Hayley&#39;s corner of the internet">
+	<meta name="fediverse:creator" content="@huggles@furry.engineer">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://foxes.systems/coloring-beatsaber">
+	<meta property="og:image" content="https://foxes.systems/huggles.png">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Hayley&#39;s corner of the internet" href="/feed.xml">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css" integrity="sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css" integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+  <nav>
+  	<p>
+  	<a href="/">Home</a>
+  	&emsp;
+  	<a href="/feed.xml">Feed</a>
+  	&emsp;
+  	<a href="/tags">Tags</a>
+  	</p>
+  </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Applying color theory to Beat Saber</h1>
+
+      
+<p><em>Published 2023-08-07</em></p>
+
+<p>Beat saber is a game which involves reading little white triangles on colored
+blocks. Identifying shapes via contrast sounds a lot like typography so I
+thought I should take a crack at applying basic typography color theory in
+order to make beat saber easier to play (theoretically).</p>
+
+<p>Note that I&apos;m neither good at beat saber or at color theory. Do your
+own experiments and find what&apos;s best for you!</p>
+
+<p>There are 2 colors of blocks, each color maps to which hand you use to slice
+the block with your saber. Additionally each block has a white triangle on it
+indicating the direction it needs to be sliced.</p>
+
+<p>So we have the following requirements</p>
+
+<ol>
+<li>2 visually distinct colors</li>
+<li>White needs to contrast well with both colors</li>
+<li>The colors need to stand out against a typically dark background</li>
+</ol>
+
+<p>The default colors are red and blue as shown in the image below.</p>
+
+<p><img src="/media/bs_default.png" alt="Beat Saber with it&apos;s default colors of red and blue"></p>
+
+<p>After some experimenting I ended up with the color <code>#2986cc</code> (blue) which has the
+complementary color <code>#cc6f29</code> (orange). <a href="https://color-hex.com">color-hex.com</a> is
+a good resource for finding complementary colors.</p>
+
+<p>I then used <a href="https://color-contrast.cc">color-contrast.cc</a> to make sure that
+both the colors pass the contrast check when used as the background for white
+text.</p>
+
+<p>Finding colors which are complementary and pass the contrast test is the
+hardest part. I found starting with a blue to be the easiest.</p>
+
+<p><img src="/media/bs_custom.png" alt="Beat Saber with the custom orange and blue colors"></p>
+
+<p>Finally you&apos;ll notice there&apos;s these big rectangular walls. They default to the
+same red as the left hand block which makes the blocks harder to see in front
+of them. But we can adjust that!</p>
+
+<p>I find that walls seem to be more transparent with a lighter color.  Therefore
+I picked <code>#c128cc</code> which has a 90° hue offset from my other two colors.</p>
+
+<p>And we now have nice balanced colors in Beat Saber!</p>
+
+    </article>
+  </main>
+
+  <footer>
+  	<p>Hayley Hughes &copy; <a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script>
+
+
+</body>
+</html>

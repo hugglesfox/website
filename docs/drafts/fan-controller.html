@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Custom fan controller for external water cooling radiators | Hayley&#39;s corner of the internet</title>
+		<meta property="og:title" content="Custom fan controller for external water cooling radiators">
+		<meta property="og:description" content="Hayley&#39;s corner of the internet">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Hayley Hughes">
+	<meta name="description" content="Hayley&#39;s corner of the internet">
+	<meta name="fediverse:creator" content="@huggles@furry.engineer">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://foxes.systems/fan-controller">
+	<meta property="og:image" content="https://foxes.systems/huggles.png">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Hayley&#39;s corner of the internet" href="/feed.xml">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css" integrity="sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css" integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+  <nav>
+  	<p>
+  	<a href="/">Home</a>
+  	&emsp;
+  	<a href="/feed.xml">Feed</a>
+  	&emsp;
+  	<a href="/tags">Tags</a>
+  	</p>
+  </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Custom fan controller for external water cooling radiators</h1>
+
+      
+<p><em>Published: TBD</em></p>
+
+<p>My partner&apos;s PC has a cool external water cooling setup where her radiators are
+outside the computer case, allowing her to have more radiators then the case
+would fit as well as to move the fan noise away from earshot. Though this comes
+at the trade-off of either needing to run very long fan and ARGB cables from the
+motherboard or having a separate controller.</p>
+
+<p>So I thought, how hard could it be to make a little board with an ESP32,
+connect it up to homeassistant, get it to read the liquid temperature from a
+standard PC water cooling temperature probe and control a few 4 pin fan and 5v
+ARGB headers? ... Famous last words.</p>
+
+<h2 id="pc-hardware">PC hardware</h2>
+
+<p>First I should cover the PC hardware which I intend to communicate with.</p>
+
+<p>PC PWM fans have 4 lines</p>
+
+<ul>
+<li>12v power</li>
+<li>Ground</li>
+<li>25kHz PWM signal for speed control</li>
+<li>Tachometer signal</li>
+</ul>
+
+<p>The tachometer signal is an open collector which pulses twice each revolution
+of the fan. Meaning that my board just needs a resistor to pull the tachometer
+signal to 3.3v for the ESP32 and it just needs to count the number of times in
+a minute which the line gets pulled to ground to calculate the fan&apos;s RPM.</p>
+
+<p>Additionally the RPM signal&apos;s logic low is defined as anything less then 0.8v
+therefore it should be fine driving it with a 3.3v GPIO pin and an ESP32c3
+should be able to generate 25kHz using it&apos;s onboard PWM controller.</p>
+
+<p>This all sounds really promising, I was expecting to need to use extra
+components for the 12v fan to communicate to the ESP32 without frying it. I
+should be able to just wire it straight up and be fine as the fan doesn&apos;t put
+12v on any of the signal lines.</p>
+
+<p>Next is the lines for the all important <em>(satire)</em> RGB</p>
+
+<ul>
+<li>5v power</li>
+<li>Ground</li>
+<li>Data</li>
+</ul>
+
+<p>From what I can tell the data line uses a variation of the ws2812 protocol. It
+should have an addition to it to be able to count how many LED modules are
+connected in the strip though I haven&apos;t figured out how that works yet. Shoving
+ws2812 signals at the data line gets them to light up though.</p>
+
+<p>Finally PC water temperature probes are NTC thermistors which have a resistance
+of 10kΩ at 25°C and typically a B-constant of 3950 (this will probably get you
+close enough though the actual value will vary from manufacturing tolerances).
+Hence we can measure it using a resistor divider and the ESP32&apos;s on-board ADC.</p>
+
+<h2 id="pcb-revision-1">PCB Revision 1</h2>
+
+<p>So I designed up a PCB in an afternoon, sent it off JLCPCB and in a few weeks I
+had a board. Also I know it&apos;s unusual to use through hole ceramic capacitors, I
+decided that I wanted to only use through hole components for this project
+(but then I went and used pads for the ESP32?).</p>
+
+<p>It features</p>
+
+<ul>
+<li>12v DC barrel jack input</li>
+<li>L7805 5v 1.5A linear regulator for powering the RGB and the ESP32</li>
+<li>DHT22 for ambient air temperature sensing</li>
+</ul>
+
+<p>Though it had some issues</p>
+
+<ul>
+<li>The pins used for ARGB connectors, whilst using the standard 2.54mm pitch, are way thinner then standard pins so the connectors didn&apos;t fit</li>
+<li>1.5A was no where near enough to power all the RGB which was going to be connected to it</li>
+<li>I ran the tachometer line parallel to the PWM line without putting in any filtering capacitors</li>
+</ul>
+
+<p>This last point meant that, through capacitive coupling, the high frequency PWM
+signals were showing up on the tachometer line making my fan read that it was
+running at multiple thousands of RPM (the max RPM of the fan is 1200).</p>
+
+<p>Not a great start. However I was able to confirm that PWM fan control was
+working and I was able to get the ARGB working too after hacking up some dupont
+cables and using a PC ATX power supply to feed the 5v line.</p>
+
+<h2 id="resources">Resources</h2>
+
+<p>Things which I referenced during the design and construction</p>
+
+<ul>
+<li><a href="https://cdn.noctua.at/preview/media/Noctua<em>PWM</em>specifications<em>white</em>paper.pdf">https://cdn.noctua.at/preview/media/Noctua<em>PWM</em>specifications<em>white</em>paper.pdf</a></li>
+</ul>
+
+    </article>
+  </main>
+
+  <footer>
+  	<p>Hayley Hughes &copy; <a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script>
+
+
+</body>
+</html>

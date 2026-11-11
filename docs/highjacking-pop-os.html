@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Hijacking PopOS | Hayley&#39;s corner of the internet</title>
+		<meta property="og:title" content="Hijacking PopOS">
+		<meta property="og:description" content="Hayley&#39;s corner of the internet">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="Hayley Hughes">
+	<meta name="description" content="Hayley&#39;s corner of the internet">
+	<meta name="fediverse:creator" content="@huggles@furry.engineer">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://foxes.systems/highjacking-pop-os">
+	<meta property="og:image" content="https://foxes.systems/huggles.png">
+
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Hayley&#39;s corner of the internet" href="/feed.xml">
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css" integrity="sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css" integrity="sha512-zKpFlhUX8c+WC6H/XTJavnEpWFt2zH9BU9vu0Hry5Y+SEgG21pRMFcecS7DgDXIegXBQ3uK9puwWPP3h6WSR9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+  <nav>
+  	<p>
+  	<a href="/">Home</a>
+  	&emsp;
+  	<a href="/feed.xml">Feed</a>
+  	&emsp;
+  	<a href="/tags">Tags</a>
+  	</p>
+  </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Hijacking PopOS</h1>
+
+      
+<p><em>Published 2020-02-19</em></p>
+
+<p><img src="/media/pop-debian.png" alt="Debian with the PopOS theming"></p>
+
+<p>The boring but descriptive title would be &quot;Configuring and installing the PopOS
+theming and tools on Debian based distributions other then PopOS&quot;.</p>
+
+<p>I love the work the System76 team has put into the theming and tooling for Pop.
+system76-power is super handy and the pop-gtk theme is the only theme I can
+comfortably daily drive but the lack of customizability of the drive partition
+layout and file system types to enable things such as hibernation or zfs during
+the install and the instability I have been experiencing whilst using the
+distro&apos;s backported nvidia drivers leaves me in a situation where I want to
+love Pop but have to look else where. But why not have both a different
+underlying distro and the Pop tooling and theming!</p>
+
+<p>So that&apos;s what I did.</p>
+
+<p>Starting out with a fresh Debian Buster install with gnome installed, (I like
+to use the package gnome-core because it doesn&apos;t install any of the gnome
+recommended apps which I never use such as gnome-contacts) the first thing I
+did was add the Pop ppa. Now before you scream <a href="https://wiki.debian.org/DontBreakDebian">Don&apos;t break Debian!</a>,
+as long as the repo is correctly pinned and we don&apos;t try to install anything
+potentially system breaking such as the Nvidia drivers, kernel, gnome, etc. the
+system will be fine as it will mostly just be harmless configuration files and
+some theming.</p>
+
+<pre><code># apt-add-repository ppa:system76/pop
+# apt update
+</code></pre>
+
+<p>Now lets make sure no packages are installed from the Pop ppa unless explicitly installed.</p>
+
+<pre><code># cat /etc/apt/preferences.d/pop.conf
+
+Package: *
+Pin: release o=LP-PPA-system76-pop
+Pin-Priority: 100
+</code></pre>
+
+<p>Now PopOS is awesome cos all of the distro configuration is handled by
+Debian packages which on install configure the system. All of Pop&apos;s custom
+packages can be found on the pop-os github but the most interesting one imo is
+<a href="https://github.com/pop-os/default-settings">default-settings</a>. The
+default-settings package not only contains Pop&apos;s gconf settings but it also
+depends on the rest of the theming acting as a nice metapackage.</p>
+
+<p>One slight problem with default-settings though is that it tries to add the Pop
+propriety repo automatically which fails on Debian because buster isn&apos;t a valid
+Ubuntu version code name. Thus I have created a [fork which removes this
+feature](https://github.com/hugglesfox/pop-default-settings) but that means
+that it needs to be manually compiled.</p>
+
+<pre><code>$ git clone https://github.com/hugglesfox/pop-default-settings
+$ cd pop-default-settings
+$ debuild -us -uc
+$ sudo apt install ../pop-default-settings*.deb
+</code></pre>
+
+<p>Now we have pulled in all the pop theming we just need to do a few more tweaks
+to make it perfect such as setting the gtk and gnome shell theme in the
+gnome-tweak-tool and whilst in the tweak tool, setting the fonts to the
+<a href="https://github.com/pop-os/fonts#recommendations">recommended fonts</a>.</p>
+
+<p>That&apos;s about it. I have also successfully tried this on a custom Ubuntu install with ZFS on root (my current set up). Isn&apos;t FOSS great!?</p>
+
+    </article>
+  </main>
+
+  <footer>
+  	<p>Hayley Hughes &copy; <a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script>
+
+
+</body>
+</html>
